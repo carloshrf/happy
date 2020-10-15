@@ -34,7 +34,7 @@ export default {
       about,
       instructions,
       opening_hours,
-      open_on_weekends
+      open_on_weekends, 
     } = request.body;
   
     const requestImages = request.files as Express.Multer.File[];
@@ -50,7 +50,7 @@ export default {
       about,
       instructions,
       opening_hours,
-      open_on_weekends,
+      open_on_weekends: open_on_weekends === 'true',
       images
     }
 
