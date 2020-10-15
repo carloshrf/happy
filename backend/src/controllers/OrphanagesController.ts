@@ -80,5 +80,20 @@ export default {
     await orphanagesRepository.save(orphanage);
     
     return response.status(201).json(orphanage);
+  },
+
+  async delete(request: Request, response: Response) {
+    const { id } = request.params;
+    const orphanageRepository = getRepository(Orphanage);
+
+    const orphanage = await orphanageRepository.findOne({ where: { id }});
+
+    if (!orphanage) {
+      return response.status(400).json({error: 'Orfanato não existe'})
+    }
+
+    await orphanageRepository.delete(id);
+
+    return response.status(200).json({message: 'Orfanato removido'});
   }
 }

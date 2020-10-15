@@ -84,9 +84,9 @@ export default function CreateOrphanage() {
             <legend>Dados</legend>
 
             <Map 
-              center={[-27.2092052,-49.6401092]} 
+              center={[-3.7762314,-38.5602964]} 
               style={{ width: '100%', height: 280 }}
-              zoom={15}
+              zoom={12}
               onclick={handleMapClick}
             >
               <TileLayer 
@@ -133,7 +133,7 @@ export default function CreateOrphanage() {
                 </label>
               </div>
 
-                <input multiple onChange={handleSelectImages} type="file" id="images[]" />
+                <input multiple onChange={handleSelectImages} type="file" id="images[]" required />
             </div>
           </fieldset>
 
