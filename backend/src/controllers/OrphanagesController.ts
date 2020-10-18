@@ -34,7 +34,8 @@ export default {
       about,
       instructions,
       opening_hours,
-      open_on_weekends, 
+      open_on_weekends,
+      whatsapp,
     } = request.body;
   
     const requestImages = request.files as Express.Multer.File[];
@@ -51,7 +52,8 @@ export default {
       instructions,
       opening_hours,
       open_on_weekends: open_on_weekends === 'true',
-      images
+      images,
+      whatsapp
     }
 
     const schema = Yup.object().shape({
@@ -66,7 +68,8 @@ export default {
         Yup.object().shape({
           path: Yup.string().required()
         })
-      )
+      ),
+      whatsapp: Yup.string(),
     });
 
     await schema.validate(data, {
