@@ -29,3 +29,24 @@ para que então os repositórios necessários sejam baixados. Para executar os p
 ```bash
 yarn start ou npm start
 ```
+Abaixo seguem algumas amostras das telas web.
+
+<p align="center">
+<img  src="https://github.com/carloshrf/happy/blob/master/pictures/landing.png?raw=true"  width="600"/>
+</p>
+
+<p align="center">
+<img  src="https://github.com/carloshrf/happy/blob/master/pictures/login.png?raw=true"  width="600"/>
+</p>
+
+<p align="center">
+<img  src="https://github.com/carloshrf/happy/blob/master/pictures/map.png?raw=true"  width="600"/>
+</p>
+
+<p align="center">
+<img  src="https://github.com/carloshrf/happy/blob/master/pictures/mobilemap.png?raw=true"  width="300"/>
+</p>
+
+<p align="center">
+<img  src="https://github.com/carloshrf/happy/blob/master/pictures/mobileorphanage.png?raw=true"  width="300"/>
+</p>
