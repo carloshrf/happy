@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../models/User';
 import { getRepository } from 'typeorm';
-import AuthenticateUserService from '../services/AuthenticateUserService';
 import CreateUserService from '../services/CreateUserService';
 
 export default { 
@@ -25,9 +24,7 @@ export default {
       relations: ['orphanage']
     });
 
-    const authenticate = new AuthenticateUserService();
-
-    authenticate.execute({email: 'a@b.com', password: '123'});
+    console.log(request.user.id);
 
     return response.json(users);
   }

@@ -1,5 +1,7 @@
 import { compare } from 'bcrypt';
 import { getRepository } from 'typeorm';
+import authConfig from '../config/auth';
+import { sign } from 'jsonwebtoken';
 import User from '../models/User';
 
 interface AuthenticationProps {
@@ -12,18 +14,29 @@ class AuthenticateUserService {
     const usersRepository = getRepository(User);
 
     const user = await usersRepository.findOne({where: {email}});
-
+console.log({email, password, user})
+    
     if (!user) {
       throw new Error('Credenciais incorretas');
     }
 
     const authenticated = await compare(password, user.password);
 
-    if(!user) {
+    if(!authenticated) {
       throw new Error('Credenciais incorretas');
     }
 
-    return authenticated;
+    const { secret, expiresIn } = authConfig.jwt;
+
+    const token = sign({}, secret, {
+      subject: String(user.id),
+      expiresIn,
+    });
+
+    return {
+      user,
+      token,
+    };
   }
 } 
 

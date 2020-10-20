@@ -55,8 +55,10 @@ export default {
       open_on_weekends: open_on_weekends === 'true',
       images,
       whatsapp,
-      user_id
+      user_id: Number(user_id)
     }
+
+    console.log(data)
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
