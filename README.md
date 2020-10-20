@@ -1,4 +1,4 @@
-# 🎓PROFFY
+# 🎓HAPPY
 
 Aplicação desenvolvida utilizando typescript durante o evento Next Level Week #3 (NLW#3) realizado pela Rocketseat. 
 
