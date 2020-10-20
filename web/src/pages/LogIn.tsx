@@ -13,21 +13,20 @@ function LogIn() {
 
   const history = useHistory();
   
-  function handleGoBack() {
-    history.goBack();
-  }
+  async function handleAuthenticate() {
+    try {
+      const response = await api.post('sessions', {email, password});
+      
+      if(!response.data.user) {
+        throw new Error('Credenciais incorretas');
+      }
+      
+      alert('Logou com sucesso!');
+      history.push('/app');
 
-  function handleAuthenticate() {
-    api.post('sessions', {email, password})
-      .then(response => {
-        if(response.data === true) {
-          alert('Logou com sucesso!');
-          history.push('/app');
-        } else {
-          alert(response.data.error);
-        }
-      })
-      .catch(err => console.log('Erro ao autenticar: ', err));
+    } catch(err) {
+      alert('Erro ao autenticar - ' + err.message);
+    }
   }
 
   return (
@@ -45,7 +44,7 @@ function LogIn() {
       </div>
       
       <div className="side-form">
-        <button className="landing-back-button" onClick={handleGoBack}><FiArrowLeft size={24} color={'#15C3D6'} /></button>
+        <button className="landing-back-button" onClick={() => history.goBack()}><FiArrowLeft size={24} color={'#15C3D6'} /></button>
         
         <div className="side-form-content">
           <h1>Fazer login</h1>
@@ -62,7 +61,7 @@ function LogIn() {
               <input id="remember-password-checkbox" type="checkbox" />
               <span></span>
             </label>
-            <a href="#">Esqueci minha senha</a>
+            <a href="_blank">Esqueci minha senha</a>
           </div>
           <button disabled={email && password ? false : true} onClick={handleAuthenticate}>Entrar</button>
         </div>
