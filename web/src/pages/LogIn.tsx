@@ -5,9 +5,11 @@ import logoImg from '../images/vertical-logo.svg';
 
 import '../styles/pages/login.css';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from '../hooks/auth';
 import api from '../services/api';
 
 function LogIn() {
+  const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassowrd] = useState('');
 
@@ -21,7 +23,13 @@ function LogIn() {
         throw new Error('Credenciais incorretas');
       }
       
+      await signIn({
+        email,
+        password
+      });
+
       alert('Logou com sucesso!');
+      
       history.push('/app');
 
     } catch(err) {
