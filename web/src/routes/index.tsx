@@ -1,8 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
 import Route from './Route';
+import { BrowserRouter, Switch } from 'react-router-dom';
+
+import { AuthProvider } from '../hooks/auth';
 
 import Landing from '../pages/Landing';
+import Dashboard from '../pages/Dashboard';
 import OrphanagesMap from '../pages/OrphanagesMap';
 import CreateOrphanage from '../pages/CreateOrphanage';
 import Orphanage from '../pages/Orphanage';
@@ -12,14 +15,17 @@ import CreateAccount from '../pages/CreateAccount';
 function Routes() {
   return(
     <BrowserRouter>
-      <Switch>
-          <Route path="/create-account" component={CreateAccount} />
-          <Route path="/login" component={LogIn} />
-          <Route exact path="/" component={Landing} />
-          <Route path="/app" component={OrphanagesMap} />
-          <Route path="/orphanages/create" component={CreateOrphanage} isPrivate />
-          <Route path="/orphanages/:id" component={Orphanage} />
-      </Switch>
+      <AuthProvider>
+        <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route path="/login" component={LogIn} />
+            <Route path="/create-account" component={CreateAccount} />
+            <Route path="/app" component={OrphanagesMap} />
+            <Route path="/orphanages/create" component={CreateOrphanage} isPrivate />
+            <Route path="/orphanages/:id" component={Orphanage} />
+            <Route path="/dashboard" component={Dashboard} />
+        </Switch>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

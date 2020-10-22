@@ -86,6 +86,28 @@
   font-size: 16px;
 }
 
+.login-page .side-form .side-form-content a.create-account-link span {
+  padding-left: 10px;
+}
+
+.login-page .side-form .side-form-content a.create-account-link {
+  margin-top: 20px;
+  align-self: center;
+  text-decoration: none;
+  font-weight: 600;
+  color: #0089A5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: color 0.2s;
+}
+
+.login-page .side-form .side-form-content a.create-account-link:hover {
+  color: #0c5463;
+}
+
 .login-page .side-form .side-form-content h1 {
   padding-bottom: 40px;
 }

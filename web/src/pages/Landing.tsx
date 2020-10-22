@@ -4,9 +4,11 @@ import { FiArrowRight } from 'react-icons/fi';
 
 import '../styles/pages/landing.css';
 import logoImg from '../images/logo.svg';
+import { useAuth } from '../hooks/auth';
 
 
 function Landing() {
+  const { user } = useAuth();
 
   return(
     <div id="page-landing">
@@ -18,9 +20,9 @@ function Landing() {
           <span>Ceará</span>
         </div>
 
-        <Link to="/login" className="landing-login-button">
+        { !user && <Link to="/login" className="landing-login-button">
           Acesso restrito
-        </Link>
+        </Link>}
 
         <main>
           <h1>Leve felicidade para o mundo</h1>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiUserPlus } from 'react-icons/fi';
 
 import logoImg from '../images/vertical-logo.svg';
 
 import '../styles/pages/login.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/auth';
 import api from '../services/api';
 
@@ -72,6 +72,10 @@ function LogIn() {
             <a href="_blank">Esqueci minha senha</a>
           </div>
           <button disabled={email && password ? false : true} onClick={handleAuthenticate}>Entrar</button>
+          <Link className="create-account-link" to="create-account">
+            <FiUserPlus size={20} color="#0089A5" />
+            <span>Não possui conta? Crie agora!</span>
+          </Link>
         </div>
       </div>
     </div>

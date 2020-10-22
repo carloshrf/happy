@@ -1,9 +1,10 @@
-import React, { createContext ,useCallback, useContext, useState } from 'react';
+import React, { createContext, useContext, useCallback, useState } from 'react';
+
 import api from '../services/api';
 
 interface AuthState {
-  user: object,
   token: string;
+  user: object;
 }
 
 interface SignInCredentials {
@@ -19,7 +20,7 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export const AuthProvider: React.FC = ({ children }) => {
+export const AuthProvider: React.FC = ({children}) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@Happy:token');
     const user = localStorage.getItem('@Happy:user');
@@ -32,7 +33,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('/sessions', {
+    const response = await api.post('sessions', {
       email,
       password
     });
@@ -42,7 +43,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem('@Happy:token', token);
     localStorage.setItem('@Happy:user', JSON.stringify(user));
 
-    setData({} as AuthState);
+    setData({ token, user });
   }, []);
 
   const signOut = useCallback(() => {
@@ -56,15 +57,15 @@ export const AuthProvider: React.FC = ({ children }) => {
     <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
 
-export function useAuth() {
-  const authContext = useContext(AuthContext);
+export function useAuth(): AuthContextData {
+  const context = useContext(AuthContext);
 
-  if (!authContext) {
-    throw new Error('useAuth deve ser usado com um AuthProvider');
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
   }
 
-  return authContext;
+  return context;
 }
