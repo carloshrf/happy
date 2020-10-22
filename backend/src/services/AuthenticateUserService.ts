@@ -14,7 +14,6 @@ class AuthenticateUserService {
     const usersRepository = getRepository(User);
 
     const user = await usersRepository.findOne({where: {email}});
-console.log({email, password, user})
     
     if (!user) {
       throw new Error('Credenciais incorretas');

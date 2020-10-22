@@ -18,17 +18,15 @@ function CreateAccount() {
     history.goBack();
   }
 
-  function handleAuthenticate() {
-    api.post('sessions', {email, password})
+  function handleSubmit() {
+    api.post('users', {name, email, password})
       .then(response => {
-        if(response.data === true) {
-          alert('Logou com sucesso!');
-          history.push('/app');
-        } else {
-          alert(response.data.error);
+        if (response.data.id) {
+          alert(`Seja bem vindo, ${name}! Agora você já pode acessar nossa plataforma e fazer a diferença identificando novas casas de acolhimento!`);
+          history.push('/login');
         }
       })
-      .catch(err => console.log('Erro ao autenticar: ', err)
+      .catch(err => alert('Erro ao criar conta: ' + err)
     );
   }
 
@@ -61,7 +59,7 @@ function CreateAccount() {
             <p>Senha</p>
             <input type="password" name="password" onChange={event => setPassowrd(event.target.value)}/>
           </div>
-          <button disabled={email && password ? false : true} onClick={handleAuthenticate}>Entrar</button>
+          <button disabled={email && password ? false : true} onClick={handleSubmit}>Criar</button>
         </div>
       </div>
     </div>
