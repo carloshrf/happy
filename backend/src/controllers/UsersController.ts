@@ -21,11 +21,23 @@ export default {
     const usersRepository = getRepository(User);
 
     const users = await usersRepository.find({
-      relations: ['orphanage']
+      relations: ['orphanages']
     });
 
     console.log(request.user.id);
 
     return response.json(users);
+  },
+
+  async show(request: Request, response: Response) {
+    const { id } = request.params;
+
+    const usersRepository = getRepository(User);
+
+    const user = await usersRepository.findOne(id, {
+      relations: ['orphanages']
+    });
+
+    return response.json(user);
   }
 }

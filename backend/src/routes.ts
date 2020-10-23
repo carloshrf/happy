@@ -20,5 +20,7 @@ routes.post('/sessions', SessionsController.create);
 
 routes.post('/users', UsersController.create);
 routes.get('/users', ensureAuthenticated, UsersController.list);
+routes.get('/users/:id', ensureAuthenticated, UsersController.show);
+
 
 export default routes;

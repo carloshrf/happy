@@ -40,7 +40,7 @@ export default class Orphanage {
   @Column()
   user_id: number;
 
-  @OneToOne(() => User, user => user.orphanage)
+  @OneToOne(() => User, user => user.orphanages)
   @JoinColumn({ name: 'user_id' })
   user: User;
 }
