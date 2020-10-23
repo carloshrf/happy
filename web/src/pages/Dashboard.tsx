@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SideBar from '../components/SideBar';
 import MapItem from '../components/MapItem';
 
 import '../styles/pages/dashboard.css';
+import api from '../services/api';
+import { useParams } from 'react-router-dom';
+import { useAuth } from '../hooks/auth';
 
 export default function Dashboard() {
+  const [userData, setUserData] = useState();
+
+  const { user } = useAuth();
+
+  useEffect(() => {
+    // api.get('/users', {
+    //   headers: {
+    //     authorization: `Bearer `
+    //   }
+    // })
+  }, []);
+
   return (
     <div id="dashboard-page">
       <SideBar />
