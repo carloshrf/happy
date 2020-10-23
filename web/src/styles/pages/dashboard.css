@@ -14,8 +14,37 @@
   justify-content: flex-start;
 }
 
-.main-title h1.dashboard-title {
+main .dashboard-content {
+  width: 100%;
+  max-width: 1120px;
+}
+
+.dashboard-content .dashboard-map-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dashboard-content .main-title {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+
+  border-bottom: 10px;
+  border-color: #D3E2E5;
+}
+
+.dashboard-content .main-title h1.dashboard-title {
   font-size: 32px;
   font-weight: 800;
   color: #4D6F80;
+}
+
+.main-title span.orphanages-counter {
+  font-size: 16px;
+  font-weight: 600;
+  color: #8FA7B3;
 }
