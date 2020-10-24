@@ -13,7 +13,6 @@ const Route: React.FC<RouteProps> = ({ isPrivate = false, component: Component, 
 
   return (
     <ReactDOMRoute {...rest} render={({ location }) => {
-      console.log(location)
       return (isPrivate === !!user) || (!!user && location.pathname !== '/login') ? (
         <Component />
       ) : (

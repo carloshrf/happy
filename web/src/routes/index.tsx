@@ -8,6 +8,7 @@ import Landing from '../pages/Landing';
 import Dashboard from '../pages/Dashboard';
 import OrphanagesMap from '../pages/OrphanagesMap';
 import CreateOrphanage from '../pages/CreateOrphanage';
+import DeleteOrphanage from '../pages/DeleteOrphanage';
 import Orphanage from '../pages/Orphanage';
 import LogIn from '../pages/LogIn';
 import CreateAccount from '../pages/CreateAccount';
@@ -17,13 +18,14 @@ function Routes() {
     <BrowserRouter>
       <AuthProvider>
         <Switch>
-            <Route exact path="/" component={Landing} />
+            <Route path="/" exact component={Landing} />
             <Route path="/login" component={LogIn} />
             <Route path="/create-account" component={CreateAccount} />
             <Route path="/app" component={OrphanagesMap} />
             <Route path="/orphanages/create" component={CreateOrphanage} isPrivate />
+            <Route path="/orphanages/delete/:id" component={DeleteOrphanage} />
             <Route path="/orphanages/:id" component={Orphanage} />
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard" component={Dashboard} isPrivate />
         </Switch>
       </AuthProvider>
     </BrowserRouter>

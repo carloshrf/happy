@@ -30,7 +30,7 @@
   justify-content: space-between;
 }
 
-.component-map-footer a {
+.component-map-footer a.dashboard-orphanage-name {
   font-size: 24px;
   font-weight: 700;
 
@@ -43,13 +43,14 @@
   flex-direction: row;
 }
 
-.component-map-footer .footer-button-container button.map-item-footer-button {
+.component-map-footer .footer-button-container a.map-item-footer-button {
   width: 48px;
   height: 48px;
   border: none;
   border-radius: 16px;
   outline: none;
   cursor: pointer;
+  background-color: #EBF2F5;
 
   display: flex;
   justify-content: center;
@@ -57,10 +58,10 @@
   transition: background-color 0.2s;
 }
 
-.component-map-footer .footer-button-container button.map-item-footer-button:hover {
+.component-map-footer .footer-button-container a.map-item-footer-button:hover {
   background-color: #c3c3c3;
 }
 
-.component-map-footer .footer-button-container button.map-item-footer-button + button {
+.component-map-footer .footer-button-container a.map-item-footer-button + a {
   margin-left: 8px;
 }

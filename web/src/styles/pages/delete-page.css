@@ -1,0 +1,72 @@
+#page-delete {
+  width: 100vw;
+  height: 100vh;
+
+  background-color: #FF669D;
+}
+
+#page-delete main {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main .page-delete-column {
+  width: 392px;
+  height: 450px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main .page-delete-column:nth-child(even) {
+  margin-left: 174px;
+}
+
+main .page-delete-column button,
+main .page-delete-column a,
+main .page-delete-column span,
+main .page-delete-column h1 {
+  text-decoration: none;
+  text-align: center;
+  color: #FFF;
+}
+
+main .page-delete-column button.exclude-message {
+  font-size: 80px;
+  font-weight: 800;
+  margin-bottom: 32px;
+  background: none;
+  border: none;
+
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+main .page-delete-column button.exclude-message:hover {
+  color: #c3c3c3;
+}
+
+main .page-delete-column span.page-delete-message {
+  font-size: 24px;
+  max-width: 350px;
+}
+
+main .page-delete-column a.page-delete-back-button {
+  padding: 20px 40px;
+  background-color: #D6487B;
+  margin-top: 64px;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  height: 64px;
+  width: 300px;
+  border-radius: 20px;
+}

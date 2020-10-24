@@ -11,9 +11,11 @@ import api from "../services/api";
 
 import '../styles/pages/create-orphanage.css';
 import { useHistory } from "react-router-dom";
+import { useAuth } from "../hooks/auth";
 
 export default function CreateOrphanage() {
   const history = useHistory();
+  const { token } = useAuth();
 
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
 
@@ -70,7 +72,13 @@ export default function CreateOrphanage() {
       data.append('images', image);
     });
 
-    await api.post('orphanages', data);
+    console.log(data);
+
+    await api.post('orphanages', data, {
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+    }).catch(err => console.log(err));
 
     alert('Cadastro realizado');
     history.push('/app');

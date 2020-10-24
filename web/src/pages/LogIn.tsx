@@ -30,7 +30,7 @@ function LogIn() {
 
       alert('Logou com sucesso!');
       
-      history.push('/app');
+      history.push('/dashboard');
 
     } catch(err) {
       alert('Erro ao autenticar - ' + err.message);
