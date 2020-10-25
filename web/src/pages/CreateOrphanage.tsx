@@ -15,7 +15,7 @@ import { useAuth } from "../hooks/auth";
 
 export default function CreateOrphanage() {
   const history = useHistory();
-  const { token } = useAuth();
+  const { token, user } = useAuth();
 
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
 
@@ -67,12 +67,11 @@ export default function CreateOrphanage() {
     data.append('instructions', instructions);
     data.append('opening_hours', opening_hours);
     data.append('open_on_weekends', String(open_on_weekends));
+    data.append('user_id', String());
 
     images.forEach(image => {
       data.append('images', image);
     });
-
-    console.log(data);
 
     await api.post('orphanages', data, {
       headers: {
@@ -92,7 +91,7 @@ export default function CreateOrphanage() {
         <form onSubmit={hadleSubmit} className="create-orphanage-form">
           <fieldset>
             <legend>Dados</legend>
-
+        
             <Map 
               center={[-3.7762314,-38.5602964]} 
               style={{ width: '100%', height: 280 }}

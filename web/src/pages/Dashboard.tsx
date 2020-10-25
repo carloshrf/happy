@@ -50,6 +50,7 @@ export default function Dashboard() {
             <div className="dashboard-map-container">
               {userData.orphanages.map(({id, latitude, longitude, name}) => (
                 <MapItem 
+                  key={id}
                   id={id}
                   latitude={latitude}
                   longitude={longitude}

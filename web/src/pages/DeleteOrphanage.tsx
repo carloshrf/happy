@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import deleteImg from '../images/delete-picture.svg';
 
 import '../styles/pages/delete-page.css';
@@ -21,13 +21,18 @@ function DeleteOrphanage() {
   const { id } = useParams<DeletePageParams>();
   const { token } = useAuth();
 
+ const history = useHistory();
+
   async function handleDelete() {
     api.delete(`orphanages/${orphanage.id}`, {
       headers: {
         authorization: `Bearer ${token}`
       }
     })
-      .then(response => console.log(response.status))
+      .then(response => {
+        alert('Orfanato removido');
+        history.push('/dashboard');
+      })
       .catch(err => console.log(err));
   }
 

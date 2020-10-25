@@ -36,7 +36,6 @@ export default {
       opening_hours,
       open_on_weekends,
       whatsapp,
-      user_id
     } = request.body;
   
     const requestImages = request.files as Express.Multer.File[];
@@ -55,10 +54,8 @@ export default {
       open_on_weekends: open_on_weekends === 'true',
       images,
       whatsapp,
-      user_id: Number(user_id)
+      user_id: request.user.id
     }
-
-    console.log(data)
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
