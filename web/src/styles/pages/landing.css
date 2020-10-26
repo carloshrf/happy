@@ -84,8 +84,35 @@
 }
 
 .content-wrapper a.landing-login-button:hover {
-  background: #96FEFF;
+  background-color: #96FEFF;
   color: #15C3D6;
+}
+
+.content-wrapper a.landing-dashboard-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  
+  text-decoration: none;
+
+  width: 222px;
+  height: 56px;
+  border: 0;
+  cursor: pointer;
+  background: #ffd666;
+  border-radius: 20px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 800;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: background-color 0.2s;
+}
+
+.content-wrapper a.landing-dashboard-button:hover {
+  background-color: #96feff;
 }
 
 .content-wrapper .enter-app {

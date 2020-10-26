@@ -20,9 +20,14 @@ function Landing() {
           <span>Ceará</span>
         </div>
 
-        { !user && <Link to="/login" className="landing-login-button">
-          Acesso restrito
-        </Link>}
+        { !user 
+          ? <Link to="/login" className="landing-login-button">
+              Acesso restrito
+            </Link>
+          : <Link to="/Dashboard" className="landing-dashboard-button">
+              Dashboard
+            </Link>
+        }
 
         <main>
           <h1>Leve felicidade para o mundo</h1>

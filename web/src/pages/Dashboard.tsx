@@ -32,10 +32,13 @@ export default function Dashboard() {
         authorization: `Bearer ${token}`
       }
     })
-      .then(response => setUserData(response.data))
+      .then(response => {
+        setUserData(response.data)
+        console.log(response.data)
+      })
       .catch(err => console.log('erro! '+ err));
   
-  }, []);
+  }, [id, token]);
 
   return (
     <div id="dashboard-page">
