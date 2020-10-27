@@ -29,7 +29,7 @@ function DeleteOrphanage() {
         authorization: `Bearer ${token}`
       }
     })
-      .then(response => {
+      .then(() => {
         alert('Orfanato removido');
         history.push('/dashboard');
       })

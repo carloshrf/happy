@@ -14,14 +14,11 @@ aside.app-sidebar img {
   width: 48px;
 }
 
-aside.app-sidebar footer a,
-aside.app-sidebar footer button {
+aside.app-sidebar button {
   width: 48px;
   height: 48px;
 
   border: 0;
-
-  background: #12AFCB;
   border-radius: 16px;
 
   cursor: pointer;
@@ -31,9 +28,18 @@ aside.app-sidebar footer button {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #12AFCB;
 }
 
-aside.app-sidebar footer a:hover,
-aside.app-sidebar footer button:hover {
+aside.app-sidebar button:hover {
   background: #17D6EB;
+}
+
+aside.app-sidebar .dashboard-button-group {
+  display: flex;
+  flex-direction: column;
+}
+
+aside.app-sidebar .dashboard-button-group button + button {
+  margin-top: 16px;
 }

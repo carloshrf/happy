@@ -24,7 +24,7 @@ function Landing() {
           ? <Link to="/login" className="landing-login-button">
               Acesso restrito
             </Link>
-          : <Link to="/Dashboard" className="landing-dashboard-button">
+          : <Link to="/dashboard" className="landing-dashboard-button">
               Dashboard
             </Link>
         }

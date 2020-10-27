@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SideBar from '../components/SideBar';
 import MapItem from '../components/MapItem';
+import Loading from '../components/Loading';
 
 import '../styles/pages/dashboard.css';
 import api from '../services/api';
@@ -63,7 +64,7 @@ export default function Dashboard() {
             </div>
           </div>
         </main>
-      ) : <h1>Carregando</h1>}
+      ) : <Loading />}
       
     </div>
   )

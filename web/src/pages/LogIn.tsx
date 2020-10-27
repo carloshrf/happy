@@ -7,15 +7,19 @@ import '../styles/pages/login.css';
 import { useHistory, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/auth';
 import api from '../services/api';
+import Loading from '../components/Loading';
 
 function LogIn() {
   const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassowrd] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const history = useHistory();
   
-  async function handleAuthenticate() {
+  async function handleSubmit() {
+    setLoading(true);
+
     try {
       const response = await api.post('sessions', {email, password});
       
@@ -30,15 +34,19 @@ function LogIn() {
 
       alert('Logou com sucesso!');
       
+      setLoading(false);
+
       history.push('/dashboard');
 
     } catch(err) {
       alert('Erro ao autenticar - ' + err.message);
+      setLoading(false);
     }
   }
 
   return (
     <div className="login-page">
+      { loading && <Loading />}
       <div className="side-logo">
         <div className="side-logo-content">
           <img src={logoImg} alt="logo" />
@@ -71,7 +79,7 @@ function LogIn() {
             </label>
             <a href="_blank">Esqueci minha senha</a>
           </div>
-          <button disabled={email && password ? false : true} onClick={handleAuthenticate}>Entrar</button>
+          <button disabled={email && password ? false : true} onClick={handleSubmit}>Entrar</button>
           <Link className="create-account-link" to="create-account">
             <FiUserPlus size={20} color="#0089A5" />
             <span>Não possui conta? Crie agora!</span>

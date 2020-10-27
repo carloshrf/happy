@@ -12,6 +12,7 @@ import api from "../services/api";
 import '../styles/pages/create-orphanage.css';
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../hooks/auth";
+import Loading from "../components/Loading";
 
 export default function CreateOrphanage() {
   const history = useHistory();
@@ -27,6 +28,7 @@ export default function CreateOrphanage() {
   const [open_on_weekends, setOpenOnWeekends] = useState(true);
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
@@ -54,6 +56,8 @@ export default function CreateOrphanage() {
   }
 
   async function hadleSubmit(event: FormEvent) {
+    setLoading(true);
+
     event.preventDefault();
     const { latitude, longitude } = position;
 
@@ -80,13 +84,15 @@ export default function CreateOrphanage() {
     }).catch(err => console.log(err));
 
     alert('Cadastro realizado');
+    setLoading(false);
+
     history.push('/app');
   }
 
   return (
     <div id="page-create-orphanage">
       <SideBar />
-
+      { loading && <Loading />}
       <main>
         <form onSubmit={hadleSubmit} className="create-orphanage-form">
           <fieldset>
