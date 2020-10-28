@@ -1,6 +1,7 @@
 import React, { useState, FormEvent, ChangeEvent } from "react";
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
+import * as Yup from 'yup';
 
 import { FiPlus } from "react-icons/fi";
 
@@ -16,7 +17,7 @@ import Loading from "../components/Loading";
 
 export default function CreateOrphanage() {
   const history = useHistory();
-  const { token, user } = useAuth();
+  const { token } = useAuth();
 
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
 
@@ -61,6 +62,32 @@ export default function CreateOrphanage() {
     event.preventDefault();
     const { latitude, longitude } = position;
 
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      about: Yup.string().required(),
+      whatsapp: Yup.string().required(),
+      latitude: Yup.number().required(),
+      longitude: Yup.number().required(),
+      instructions: Yup.string().required(),
+      opening_hours: Yup.string().required(),
+      open_on_weekends: Yup.boolean().required(),
+      images: Yup.mixed().required().test('fileFormat', '*', (value) => {
+        console.log(value); return value;
+      }),
+    });
+
+    await schema.validate({
+      name,
+      about,
+      whatsapp,
+      latitude,
+      longitude,
+      instructions,
+      opening_hours,
+      open_on_weekends,
+      images
+    });
+
     const data = new FormData();
 
     data.append('name', name);
@@ -71,7 +98,6 @@ export default function CreateOrphanage() {
     data.append('instructions', instructions);
     data.append('opening_hours', opening_hours);
     data.append('open_on_weekends', String(open_on_weekends));
-    data.append('user_id', String());
 
     images.forEach(image => {
       data.append('images', image);

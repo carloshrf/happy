@@ -8,6 +8,7 @@ import mapMarkerImg from '../images/map-marker.svg';
 import '../styles/pages/orphanages-map.css';
 import mapIcon from '../utils/mapIcon';
 import api from '../services/api';
+import Loading from '../components/Loading';
 
 interface Orphanage {
   id: number;
@@ -18,15 +19,22 @@ interface Orphanage {
 
 function OrphanagesMap() {
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     api.get('orphanages').then(response => {
       setOrphanages(response.data);
+      setLoading(false);
+    }).catch(err => {
+      alert('Erro ao consultar orfanatos. ' + err);
+      setLoading(false);
     });
   }, []);
 
   return(
     <div id="page-map">
+      {loading && <Loading />}
       <aside>
         <header>
           <img src={mapMarkerImg} alt="Happy"/>
