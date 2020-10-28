@@ -40,6 +40,10 @@ aside.app-sidebar .dashboard-button-group {
   flex-direction: column;
 }
 
+aside.app-sidebar footer button + button {
+  margin-top: 16px;
+}
+
 aside.app-sidebar .dashboard-button-group button + button {
   margin-top: 16px;
 }

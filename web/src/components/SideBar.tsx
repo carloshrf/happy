@@ -21,14 +21,15 @@ export default function SideBar() {
       </div>
       
       <footer>
-        {pathname === '/dashboard' 
-          ? (<button type="button" onClick={signOut}>
-              <FiPower size={24} color="#FFF" />
-            </button>) 
-          : (<button type="button" onClick={goBack}>
-              <FiArrowLeft size={24} color="#FFF" />
-            </button>)
+        {pathname === '/dashboard' &&
+          (<button type="button" onClick={signOut}>
+            <FiPower size={24} color="#FFF" />
+          </button>) 
         }
+        
+        <button type="button" onClick={goBack}>
+          <FiArrowLeft size={24} color="#FFF" />
+        </button>
       </footer>
     </aside>
   );
