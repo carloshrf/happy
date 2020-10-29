@@ -36,7 +36,7 @@ const MapItem: React.FC<MapItemProps> = ({ name, id, latitude, longitude }) => {
         </Map>
       </div>
       <div className="component-map-footer">
-        <Link to="/" className="dashboard-orphanage-name">{name}</Link>
+        <Link to={`/orphanages/${id}`} className="dashboard-orphanage-name">{name}</Link>
         
         <div className="footer-button-container">
           <Link to="/" className="map-item-footer-button">

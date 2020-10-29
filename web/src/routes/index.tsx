@@ -6,6 +6,7 @@ import { AuthProvider } from '../hooks/auth';
 
 import Landing from '../pages/Landing';
 import Dashboard from '../pages/Dashboard';
+import DashboardPending from '../pages/DashboardPending';
 import OrphanagesMap from '../pages/OrphanagesMap';
 import CreateOrphanage from '../pages/CreateOrphanage';
 import DeleteOrphanage from '../pages/DeleteOrphanage';
@@ -25,7 +26,8 @@ function Routes() {
             <Route path="/orphanages/create" component={CreateOrphanage} isPrivate />
             <Route path="/orphanages/delete/:id" component={DeleteOrphanage} />
             <Route path="/orphanages/:id" component={Orphanage} />
-            <Route path="/dashboard" component={Dashboard} isPrivate />
+            <Route path="/dashboard" exact component={Dashboard} isPrivate />
+            <Route path="/dashboard/pending" exact component={DashboardPending} isPrivate />
         </Switch>
       </AuthProvider>
     </BrowserRouter>

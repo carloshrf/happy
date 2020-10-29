@@ -6,6 +6,7 @@ import Loading from '../components/Loading';
 import '../styles/pages/dashboard.css';
 import api from '../services/api';
 import { useAuth } from '../hooks/auth';
+import { setLocale } from 'yup';
 
 interface Orphanage {
   name: string;
@@ -34,10 +35,12 @@ export default function Dashboard() {
       }
     })
       .then(response => {
-        setUserData(response.data)
-        console.log(response.data)
+        setUserData(response.data);
+        console.log(response.data);
       })
-      .catch(err => console.log('erro! '+ err));
+      .catch(err => {
+        console.log('erro! '+ err);
+      });
   
   }, [id, token]);
 

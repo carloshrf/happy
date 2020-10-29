@@ -7,7 +7,7 @@ import '../styles/components/sidebar.css';
 import { useAuth } from '../hooks/auth';
 
 export default function SideBar() {
-  const { goBack } = useHistory();
+  const { goBack, push } = useHistory();
   const { pathname } = useLocation();
   const { signOut } = useAuth();
 
@@ -16,12 +16,25 @@ export default function SideBar() {
       <img src={mapMarkerImg} alt="Happy" />
 
       <div className="dashboard-button-group">
-        <button type="button"><FiMapPin size={24} color="#FFF" /></button>
-        <button type="button"><FiAlertCircle size={24} color="#FFF" /></button>
+        <button 
+          type="button" 
+          className={pathname === '/dashboard' ? 'current' : ''}
+          onClick={() => push('/dashboard')}
+        >
+          <FiMapPin size={24} color={pathname === '/dashboard' ? '#15C3D6' : '#FFF'}/>
+        </button>
+        
+        <button 
+          type="button" 
+          className={pathname === '/dashboard/pending' ? 'current' : ''}
+          onClick={() => push('/dashboard/pending')}
+        >
+          <FiAlertCircle size={24} color={pathname === '/dashboard/pending' ? '#15C3D6' : '#FFF'} />
+        </button>
       </div>
       
       <footer>
-        {pathname === '/dashboard' &&
+        {(pathname === '/dashboard' || pathname === '/dashboard/pending') && 
           (<button type="button" onClick={signOut}>
             <FiPower size={24} color="#FFF" />
           </button>) 

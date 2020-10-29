@@ -29,6 +29,7 @@ aside.app-sidebar button {
   justify-content: center;
   align-items: center;
   background: #12AFCB;
+  outline: none;
 }
 
 aside.app-sidebar button:hover {
@@ -38,6 +39,10 @@ aside.app-sidebar button:hover {
 aside.app-sidebar .dashboard-button-group {
   display: flex;
   flex-direction: column;
+}
+
+aside.app-sidebar .dashboard-button-group button.current {
+  background-color: #FFD666;
 }
 
 aside.app-sidebar footer button + button {
