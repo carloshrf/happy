@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import { Nunito_600SemiBold, Nunito_700Bold, Nunito_800ExtraBold } from '@expo-google-fonts/nunito';
 
 import Routes from './src/routes';
+import { AuthProvider } from './src/hooks/auth';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -17,6 +18,8 @@ export default function App() {
   }
 
   return (
-    <Routes />    
+    <AuthProvider>
+      <Routes />    
+    </AuthProvider>
   );
 }

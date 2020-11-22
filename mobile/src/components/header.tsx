@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../hooks/auth';
 
 interface HeaderProps {
   title: string;
@@ -10,6 +11,7 @@ interface HeaderProps {
 }
 
 export default function Header({ title, showCancel=true }: HeaderProps){
+  const { signOut } = useAuth();
   const navigation = useNavigation();
 
   return (
@@ -24,7 +26,9 @@ export default function Header({ title, showCancel=true }: HeaderProps){
           <Feather name="x" size={24} color="#ff669d" />
         </BorderlessButton>
         ) : (
-        <View />
+        <BorderlessButton onPress={signOut}>
+          <Feather name="power" size={24} color="#ff669d" />
+        </BorderlessButton>
         )}
     
     </View>

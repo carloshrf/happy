@@ -1,37 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Switch, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import { useAuth } from '../../hooks/auth';
+import { useAuth } from '../hooks/auth';
 
-import api from '../../services/api';
+import api from '../services/api';
 
 interface OrphanageDataRouteParams {
-  position: {
-    latitude: number;
-    longitude: number;
-  }
+  id: number;
 }
 
-export default function OrphanageData() {
+interface ResponseProps {
+  name: string;
+  latitude: number;
+  longitude: number;
+  instructions: string;
+  whatsapp: string;
+  about: string;
+  opening_hours: string;
+  open_on_weekends: boolean;
+  images: Array<
+    {
+      id: number;
+      url: string;
+    } 
+  >;
+}
+
+interface ImagesStateProps {
+  id: number;
+  url: string;
+}
+
+export default function EditOrphanage() {
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
   const [instructions, setInstructions] = useState('');
   const [opening_hours, setOpeningHours] = useState('');
   const [open_on_weekends, setOpenOnWeekends] = useState(true);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<ImagesStateProps[]>([]);
+
+  const route = useRoute();
+
+  const params = route.params as OrphanageDataRouteParams;
+  const navigation = useNavigation();
 
   const { token } = useAuth();
+  const { id } = params;
 
-  const navigation = useNavigation();
-  const route = useRoute();
-  const params = route.params as OrphanageDataRouteParams;
 
-  async function handleCreateOrphanage() {
-    const { latitude, longitude } = params.position;
+  async function handleEditOrphanage() {
 
     const data = new FormData();
 
@@ -48,23 +71,30 @@ export default function OrphanageData() {
       data.append('images', {
         name: `image_${index}.jpg`,
         type: 'image/jpg',
-        uri: image,
+        uri: image.url,
       } as any)
     });
 
-    await api.post('orphanages', data, {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    });
-    navigation.navigate('OrphanagesMap');
+    try {
+      const response = await api.patch(`orphanages/${id}`, data, {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      });
+
+      console.log(response.data);
+    } catch(err) {
+      console.log(err);
+    }
+    
+    // navigation.navigate('OrphanagesMap');
   }
 
   async function handleSelectImages() {
     const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
 
     if (status !== 'granted') {
-      alert('Ow men... precisamos de acesso às suas fotos :/');
+      alert('É importante que tenhamos acesso às suas fotos :/');
       return;
     }
 
@@ -80,8 +110,43 @@ export default function OrphanageData() {
 
     const { uri } = result;
 
-    setImages([...images, uri]);
+    // const allImages = 
+
+    // setImages([...images, uri]);
   }
+
+  useEffect(() => {
+    api.get(`/orphanages/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      const { 
+        name, 
+        latitude, 
+        longitude, 
+        instructions, 
+        whatsapp,
+        about, 
+        opening_hours, 
+        open_on_weekends, 
+        images 
+      } = response.data as ResponseProps;
+
+      setName(name);
+      setLatitude(latitude);
+      setLongitude(longitude);
+      setInstructions(instructions);
+      setAbout(about);
+      setWhatsapp(whatsapp);
+      setOpeningHours(opening_hours);
+      setOpenOnWeekends(open_on_weekends);
+      setImages(images);
+
+    })
+    .catch(err => console.log(err));
+  }, []);
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 24 }}>
@@ -115,8 +180,8 @@ export default function OrphanageData() {
         {images.map(image => {
           return (
             <Image 
-              key={image}
-              source={{ uri: image }}
+              key={image.id}
+              source={{ uri: image.url }}
               style={styles.uploadedImage}
             />
           )
@@ -154,8 +219,8 @@ export default function OrphanageData() {
         />
       </View>
 
-      <RectButton style={styles.nextButton} onPress={handleCreateOrphanage}>
-        <Text style={styles.nextButtonText}>Cadastrar</Text>
+      <RectButton style={styles.nextButton} onPress={handleEditOrphanage}>
+        <Text style={styles.nextButtonText}>Salvar</Text>
       </RectButton>
     </ScrollView>
   )

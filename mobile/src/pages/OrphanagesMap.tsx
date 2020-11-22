@@ -7,6 +7,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import mapMarker from '../images/map-marker.png';
 import { RectButton } from 'react-native-gesture-handler';
+import { useAuth } from '../hooks/auth';
 import api from '../services/api';
 
 interface Orphanage {
@@ -18,6 +19,7 @@ interface Orphanage {
 
 export default function OrphanagesMap() {
   const navigation = useNavigation();
+  const { user } = useAuth();
 
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
@@ -26,7 +28,11 @@ export default function OrphanagesMap() {
   }
 
   function handleNavigateToCreateOrphanage() {
-    navigation.navigate('SelectMapPosition');
+    if (user) {
+      navigation.navigate('SelectMapPosition');
+    } else {
+      navigation.navigate('Login');
+    }
   }
 
   useFocusEffect(() => {

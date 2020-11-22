@@ -5,6 +5,7 @@ import { Feather, FontAwesome } from '@expo/vector-icons';
 
 import mapMarkerImg from '../images/map-marker.png';
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 import api from '../services/api';
 
@@ -30,6 +31,7 @@ interface Orphanage {
 export default function OrphanageDetails() {
   const route = useRoute();
   const [orphanage, setOrphanage] = useState<Orphanage>();
+  const navigation = useNavigation();
 
   const params = route.params as OrphanageDetailsRouteParams;
 
@@ -39,6 +41,10 @@ export default function OrphanageDetails() {
 
   function handleOpenGoogleMapRoutes() {
     Linking.openURL(`http://www.google.com/maps/dir/?api=1&destination=${orphanage?.latitude},${orphanage?.longitude}`)
+  }
+
+  function handleEditOrphanage() {
+    navigation.navigate('EditeOrphanage', { id: params.id });
   }
 
   if (!orphanage) {
