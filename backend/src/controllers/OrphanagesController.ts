@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import Orphanage from '../models/Orphanage';
+import Image from '../models/Image';
 import orphanageView from '../views/orphanages_view';
+import fs from 'fs';
+import path from 'path';
 import * as Yup from 'yup';
 
 export default { 
@@ -91,8 +94,9 @@ export default {
     const { id } = request.params;
 
     const orphanagesRepository = getRepository(Orphanage);
+    const imagesRepository = getRepository(Image);
+
     const orphanage = await orphanagesRepository.findOne(id);
-console.log(orphanage)
     if (!orphanage) {
       return response.status(400).json({message: 'Não há um orfanato registrado com esse id'});
     }
@@ -148,15 +152,30 @@ console.log(orphanage)
       abortEarly: false,
     });
 
+    const previousImages = await imagesRepository.find({where: {orphanage: orphanage.id}}); 
+    await imagesRepository.remove(previousImages);
+
+    console.log(previousImages.length)
+    previousImages.map(current => {
+      const currentPath = path.resolve('uploads', current.path);
+
+      fs.unlink(currentPath, (err) => {
+        console.log(`Erro na remoção: ${err}`);
+      })
+    });
+
+    const newImages = imagesRepository.create(images);    
+
     orphanage.name = name;
     orphanage.about = about;
     orphanage.whatsapp = whatsapp;
+    orphanage.images = newImages;
     orphanage.instructions = instructions;
     orphanage.opening_hours = opening_hours;
     orphanage.open_on_weekends = data.open_on_weekends;
-    
+
     await orphanagesRepository.save(orphanage);
-    
+        
     return response.status(201).json(orphanage);
   },
 
