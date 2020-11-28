@@ -40,7 +40,7 @@ export default {
       open_on_weekends,
       whatsapp,
     } = request.body;
-  
+
     const requestImages = request.files as Express.Multer.File[];
 
     const images = requestImages.map(image => {
@@ -155,13 +155,13 @@ export default {
     const previousImages = await imagesRepository.find({where: {orphanage: orphanage.id}}); 
     await imagesRepository.remove(previousImages);
 
-    console.log(previousImages.length)
     previousImages.map(current => {
       const currentPath = path.resolve('uploads', current.path);
 
-      fs.unlink(currentPath, (err) => {
-        console.log(`Erro na remoção: ${err}`);
-      })
+      fs.unlink(currentPath, (err => {
+          !!err && console.log(`Erro na remoção: ${err}`);
+        })
+      );
     });
 
     const newImages = imagesRepository.create(images);    

@@ -35,12 +35,28 @@ export default function OrphanagesMap() {
     }
   }
 
+  function handleAccess() {
+    if (user) {
+      navigation.navigate('Dashboard');
+    } else {
+      navigation.navigate('Login');
+    }
+  }
+
   useFocusEffect(() => {
     api.get('orphanages').then(response => setOrphanages(response.data));
   });
 
   return (
     <View style={styles.container}>
+      <View style={styles.accessView}>
+        <RectButton style={styles.accessButton} onPress={handleAccess}>
+          { !!user
+            ? <Feather name="home" size={20} color="#FFF" />
+            : <Feather name="log-in" size={20} color="#FFF" />
+          }
+        </RectButton>
+      </View>
       <MapView 
         provider={PROVIDER_GOOGLE}
         style={styles.map}
@@ -91,7 +107,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  accessView: {
+    position: 'absolute',
+    right: 24,
+    top: 40,
 
+    zIndex: 2
+  },
+  accessButton: {
+    width: 56,
+    height: 56,
+    backgroundColor: '#15c3d6',
+    borderRadius: 20,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   map: {
     width: Dimensions.get('window').width,
     height: "100%",

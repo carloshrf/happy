@@ -76,18 +76,17 @@ export default function EditOrphanage() {
     });
 
     try {
-      const response = await api.patch(`orphanages/${id}`, data, {
+      await api.patch(`orphanages/${id}`, data, {
         headers: {
           authorization: `Bearer ${token}`
         }
       });
 
-      console.log(response.data);
     } catch(err) {
       console.log(err);
     }
     
-    // navigation.navigate('OrphanagesMap');
+    navigation.navigate('Dashboard');
   }
 
   async function handleSelectImages() {

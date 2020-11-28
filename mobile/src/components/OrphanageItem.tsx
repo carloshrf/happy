@@ -12,14 +12,11 @@ interface OrphanageItemProps {
   name: string;
   latitude: number;
   longitude: number;
+  deleteModal(orphanageId: number): void;
 }
 
-export default function OrphanageItem({ id, name, latitude, longitude }: OrphanageItemProps) {
+export default function OrphanageItem({ id, name, latitude, longitude, deleteModal }: OrphanageItemProps) {
   const navigation = useNavigation();
-
-  function hadleDelete() {
-    
-  }
 
   return (
     <View style={styles.container}>
@@ -36,6 +33,7 @@ export default function OrphanageItem({ id, name, latitude, longitude }: Orphana
           scrollEnabled={false}
           rotateEnabled={false}
           style={styles.map}
+          onPress={() => {navigation.navigate('OrphanageDetails', { id })}}
         >
           <Marker 
             icon={mapMarkerImg}
@@ -49,8 +47,7 @@ export default function OrphanageItem({ id, name, latitude, longitude }: Orphana
         <BorderlessButton onPress={() => navigation.navigate('EditOrphanage', { id })}>
           <Feather color='#15C3D6' name='edit-2' size={22} />
         </BorderlessButton>
-        <BorderlessButton onPress={() => Alert.alert('Deseja realmente remover este orfanato?', 'Ao apertar em OK o registro será removido.')}>
-          {/* navigation.navigate('OrphanagesMap') */}
+        <BorderlessButton onPress={() => deleteModal(id)}>
           <Feather color='#D6487B' name='trash-2' size={22} />
         </BorderlessButton>
         </View>

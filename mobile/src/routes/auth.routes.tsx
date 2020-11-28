@@ -24,6 +24,11 @@ export default function AuthRoutes() {
         }}
       >
         <Auth.Screen 
+          name="OrphanagesMap" 
+          component={OrphanagesMap}
+        />
+        
+        <Auth.Screen 
           name="Dashboard"
           component={Dashboard}
           options={{
@@ -32,10 +37,6 @@ export default function AuthRoutes() {
           }}
         />
 
-        <Auth.Screen 
-          name="OrphanagesMap" 
-          component={OrphanagesMap}
-        />
         
         <Auth.Screen 
           name="OrphanageDetails" 

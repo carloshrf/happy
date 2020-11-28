@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
 
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useAuth } from '../hooks/auth';
 
 
